@@ -1,0 +1,1378 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------< com.trackmyfunds:trackmyfunds >--------------------
+[INFO] Building TrackMyFunds 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.4.5:run (default-cli) > test-compile @ trackmyfunds >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ trackmyfunds ---
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] Copying 4 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ trackmyfunds ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 27 source files with javac [debug parameters release 17] to target\classes
+[INFO] Annotation processing is enabled because one or more processors were found
+  on the class path. A future release of javac may disable annotation processing
+  unless at least one processor is specified by name (-processor), or a search
+  path is specified (--processor-path, --processor-module-path), or annotation
+  processing is enabled explicitly (-proc:only, -proc:full).
+  Use -Xlint:-options to suppress this message.
+  Use -proc:none to disable annotation processing.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ trackmyfunds ---
+[INFO] skip non existing resourceDirectory C:\Users\2438932\OneDrive - Cognizant\Desktop\TrackMyFunds\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ trackmyfunds ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 1 source file with javac [debug parameters release 17] to target\test-classes
+[INFO] Annotation processing is enabled because one or more processors were found
+  on the class path. A future release of javac may disable annotation processing
+  unless at least one processor is specified by name (-processor), or a search
+  path is specified (--processor-path, --processor-module-path), or annotation
+  processing is enabled explicitly (-proc:only, -proc:full).
+  Use -Xlint:-options to suppress this message.
+  Use -proc:none to disable annotation processing.
+[INFO] 
+[INFO] <<< spring-boot:3.4.5:run (default-cli) < test-compile @ trackmyfunds <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.4.5:run (default-cli) @ trackmyfunds ---
+[INFO] Attaching agents: []
+Standard Commons Logging discovery in action with spring-jcl: please remove commons-logging.jar from classpath in order to avoid potential conflicts
+Standard Commons Logging discovery in action with spring-jcl: please remove commons-logging.jar from classpath in order to avoid potential conflicts
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.5)
+
+2026-05-05T20:38:14.398+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] c.trackmyfunds.TrackMyFundsApplication   : Starting TrackMyFundsApplication using Java 21 with PID 24428 (C:\Users\2438932\OneDrive - Cognizant\Desktop\TrackMyFunds\target\classes started by 2438932 in C:\Users\2438932\OneDrive - Cognizant\Desktop\TrackMyFunds)
+2026-05-05T20:38:14.401+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] c.trackmyfunds.TrackMyFundsApplication   : The following 1 profile is active: "dev"
+2026-05-05T20:38:14.802+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-05-05T20:38:14.802+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-05-05T20:38:15.527+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-05T20:38:15.586+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 50 ms. Found 1 JPA repository interface.
+2026-05-05T20:38:16.194+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-05-05T20:38:16.205+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-05-05T20:38:16.208+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.40]
+2026-05-05T20:38:16.244+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-05-05T20:38:16.244+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1442 ms
+Standard Commons Logging discovery in action with spring-jcl: please remove commons-logging.jar from classpath in order to avoid potential conflicts
+2026-05-05T20:38:16.410+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-05-05T20:38:16.458+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.13.Final
+2026-05-05T20:38:16.483+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-05-05T20:38:16.697+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-05T20:38:16.724+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-05-05T20:38:16.861+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:trackmyfundsdb user=SA
+2026-05-05T20:38:16.861+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-05-05T20:38:16.891+05:30  WARN 24428 --- [TrackMyFunds] [  restartedMain] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-05-05T20:38:16.905+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-05-05T20:38:17.760+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+Hibernate: 
+    drop table if exists expenses cascade 
+Hibernate: 
+    create table expenses (
+        amount numeric(19,2) not null,
+        date date not null,
+        created_at timestamp(6),
+        id bigint generated by default as identity,
+        description TEXT,
+        title varchar(255) not null,
+        category enum ('EDUCATION','ENTERTAINMENT','FOOD','HEALTH','OTHER','SHOPPING','TRANSPORT','UTILITIES') not null,
+        payment_method enum ('CARD','CASH','NETBANKING','UPI') not null,
+        primary key (id)
+    )
+2026-05-05T20:38:17.814+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-05-05T20:38:18.040+05:30  WARN 24428 --- [TrackMyFunds] [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-05T20:38:18.053+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2026-05-05T20:38:18.430+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:trackmyfundsdb'
+2026-05-05T20:38:18.537+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2026-05-05T20:38:18.589+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2026-05-05T20:38:18.596+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] c.trackmyfunds.TrackMyFundsApplication   : Started TrackMyFundsApplication in 4.65 seconds (process running for 5.132)
+Hibernate: 
+    select
+        count(*) 
+    from
+        expenses e1_0
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+2026-05-05T20:38:19.106+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] com.trackmyfunds.config.DataSeeder       : DataSeeder: seeded 50 expense records.
+2026-05-05T20:39:34.855+05:30  INFO 24428 --- [TrackMyFunds] [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-05-05T20:39:34.858+05:30  INFO 24428 --- [TrackMyFunds] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-05-05T20:39:34.858+05:30  INFO 24428 --- [TrackMyFunds] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+Hibernate: 
+    select
+        e1_0.id,
+        e1_0.amount,
+        e1_0.category,
+        e1_0.created_at,
+        e1_0.date,
+        e1_0.description,
+        e1_0.payment_method,
+        e1_0.title 
+    from
+        expenses e1_0 
+    order by
+        e1_0.date desc 
+    offset
+        ? rows 
+    fetch
+        first ? rows only
+Hibernate: 
+    select
+        count(e1_0.id) 
+    from
+        expenses e1_0
+2026-05-05T20:39:34.968+05:30  WARN 24428 --- [TrackMyFunds] [nio-8080-exec-1] ration$PageModule$WarningLoggingModifier : Serializing PageImpl instances as-is is not supported, meaning that there is no guarantee about the stability of the resulting JSON structure!
+	For a stable JSON structure, please use Spring Data's PagedModel (globally via @EnableSpringDataWebSupport(pageSerializationMode = VIA_DTO))
+	or Spring HATEOAS and Spring Data's PagedResourcesAssembler as documented in https://docs.spring.io/spring-data/commons/reference/repositories/core-extensions.html#core.web.pageables.
+
+Hibernate: 
+    select
+        e1_0.id,
+        e1_0.amount,
+        e1_0.category,
+        e1_0.created_at,
+        e1_0.date,
+        e1_0.description,
+        e1_0.payment_method,
+        e1_0.title 
+    from
+        expenses e1_0 
+    where
+        e1_0.category=? 
+    order by
+        e1_0.date desc 
+    offset
+        ? rows 
+    fetch
+        first ? rows only
+Hibernate: 
+    select
+        e1_0.id,
+        e1_0.amount,
+        e1_0.category,
+        e1_0.created_at,
+        e1_0.date,
+        e1_0.description,
+        e1_0.payment_method,
+        e1_0.title 
+    from
+        expenses e1_0
+Hibernate: 
+    select
+        e1_0.id,
+        e1_0.amount,
+        e1_0.category,
+        e1_0.created_at,
+        e1_0.date,
+        e1_0.description,
+        e1_0.payment_method,
+        e1_0.title 
+    from
+        expenses e1_0 
+    where
+        e1_0.id=?
+Hibernate: 
+    select
+        e1_0.id,
+        e1_0.amount,
+        e1_0.category,
+        e1_0.created_at,
+        e1_0.date,
+        e1_0.description,
+        e1_0.payment_method,
+        e1_0.title 
+    from
+        expenses e1_0 
+    where
+        e1_0.id=?
+2026-05-05T20:39:35.301+05:30  WARN 24428 --- [TrackMyFunds] [nio-8080-exec-5] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [jakarta.persistence.EntityNotFoundException: Expense not found: 9999]
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+2026-05-05T20:39:35.507+05:30  WARN 24428 --- [TrackMyFunds] [nio-8080-exec-7] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public com.trackmyfunds.dto.ExpenseResponseDTO com.trackmyfunds.controller.ExpenseRestController.create(com.trackmyfunds.dto.ExpenseRequestDTO) with 2 errors: [Field error in object 'expenseRequestDTO' on field 'title': rejected value []; codes [NotBlank.expenseRequestDTO.title,NotBlank.title,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [expenseRequestDTO.title,title]; arguments []; default message [title]]; default message [must not be blank]] [Field error in object 'expenseRequestDTO' on field 'amount': rejected value [-5]; codes [Positive.expenseRequestDTO.amount,Positive.amount,Positive.java.math.BigDecimal,Positive]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [expenseRequestDTO.amount,amount]; arguments []; default message [amount]]; default message [must be greater than 0]] ]
+Hibernate: 
+    select
+        e1_0.id,
+        e1_0.amount,
+        e1_0.category,
+        e1_0.created_at,
+        e1_0.date,
+        e1_0.description,
+        e1_0.payment_method,
+        e1_0.title 
+    from
+        expenses e1_0 
+    where
+        e1_0.id=?
+Hibernate: 
+    update
+        expenses 
+    set
+        amount=?,
+        category=?,
+        date=?,
+        description=?,
+        payment_method=?,
+        title=? 
+    where
+        id=?
+Hibernate: 
+    select
+        count(*) 
+    from
+        expenses e1_0 
+    where
+        e1_0.id=?
+Hibernate: 
+    select
+        e1_0.id,
+        e1_0.amount,
+        e1_0.category,
+        e1_0.created_at,
+        e1_0.date,
+        e1_0.description,
+        e1_0.payment_method,
+        e1_0.title 
+    from
+        expenses e1_0 
+    where
+        e1_0.id=?
+Hibernate: 
+    delete 
+    from
+        expenses 
+    where
+        id=?
+Hibernate: 
+    select
+        e1_0.id,
+        e1_0.amount,
+        e1_0.category,
+        e1_0.created_at,
+        e1_0.date,
+        e1_0.description,
+        e1_0.payment_method,
+        e1_0.title 
+    from
+        expenses e1_0 
+    where
+        e1_0.id=?
+2026-05-05T20:39:35.611+05:30  WARN 24428 --- [TrackMyFunds] [nio-8080-exec-4] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [jakarta.persistence.EntityNotFoundException: Expense not found: 51]
+Hibernate: 
+    select
+        e1_0.id,
+        e1_0.amount,
+        e1_0.category,
+        e1_0.created_at,
+        e1_0.date,
+        e1_0.description,
+        e1_0.payment_method,
+        e1_0.title 
+    from
+        expenses e1_0 
+    order by
+        e1_0.date desc 
+    offset
+        ? rows 
+    fetch
+        first ? rows only
+Hibernate: 
+    select
+        count(e1_0.id) 
+    from
+        expenses e1_0
+Hibernate: 
+    select
+        e1_0.id,
+        e1_0.amount,
+        e1_0.category,
+        e1_0.created_at,
+        e1_0.date,
+        e1_0.description,
+        e1_0.payment_method,
+        e1_0.title 
+    from
+        expenses e1_0 
+    order by
+        e1_0.date desc 
+    offset
+        ? rows 
+    fetch
+        first ? rows only
+Hibernate: 
+    select
+        count(e1_0.id) 
+    from
+        expenses e1_0
+Hibernate: 
+    select
+        e1_0.id,
+        e1_0.amount,
+        e1_0.category,
+        e1_0.created_at,
+        e1_0.date,
+        e1_0.description,
+        e1_0.payment_method,
+        e1_0.title 
+    from
+        expenses e1_0
+2026-05-05T21:03:16.382+05:30  INFO 24428 --- [TrackMyFunds] [   File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 32 class path changes (2 additions, 28 deletions, 2 modifications)
+2026-05-05T21:03:16.391+05:30  INFO 24428 --- [TrackMyFunds] [       Thread-5] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-05-05T21:03:16.413+05:30  INFO 24428 --- [TrackMyFunds] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-05-05T21:03:16.419+05:30  INFO 24428 --- [TrackMyFunds] [       Thread-5] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+Hibernate: 
+    drop table if exists expenses cascade 
+2026-05-05T21:03:16.436+05:30  WARN 24428 --- [TrackMyFunds] [       Thread-5] o.s.b.f.support.DisposableBeanAdapter    : Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-232]
+2026-05-05T21:03:16.440+05:30  INFO 24428 --- [TrackMyFunds] [       Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-05-05T21:03:16.444+05:30  INFO 24428 --- [TrackMyFunds] [       Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+Standard Commons Logging discovery in action with spring-jcl: please remove commons-logging.jar from classpath in order to avoid potential conflicts
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.5)
+
+2026-05-05T21:03:16.693+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] c.trackmyfunds.TrackMyFundsApplication   : Starting TrackMyFundsApplication using Java 21 with PID 24428 (C:\Users\2438932\OneDrive - Cognizant\Desktop\TrackMyFunds\target\classes started by 2438932 in C:\Users\2438932\OneDrive - Cognizant\Desktop\TrackMyFunds)
+2026-05-05T21:03:16.694+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] c.trackmyfunds.TrackMyFundsApplication   : The following 1 profile is active: "dev"
+2026-05-05T21:03:17.126+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-05T21:03:17.138+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 4 ms. Found 0 JPA repository interfaces.
+2026-05-05T21:03:17.369+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-05-05T21:03:17.373+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-05-05T21:03:17.374+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.40]
+2026-05-05T21:03:17.442+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-05-05T21:03:17.445+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 735 ms
+Standard Commons Logging discovery in action with spring-jcl: please remove commons-logging.jar from classpath in order to avoid potential conflicts
+2026-05-05T21:03:17.547+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-05-05T21:03:17.552+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-05-05T21:03:17.580+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-05T21:03:17.584+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2026-05-05T21:03:17.589+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection conn10: url=jdbc:h2:mem:trackmyfundsdb user=SA
+2026-05-05T21:03:17.591+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2026-05-05T21:03:17.591+05:30  WARN 24428 --- [TrackMyFunds] [  restartedMain] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-05-05T21:03:17.591+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-2)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-05-05T21:03:17.620+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-05-05T21:03:17.621+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-05-05T21:03:17.665+05:30  WARN 24428 --- [TrackMyFunds] [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-05T21:03:17.701+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2026-05-05T21:03:17.977+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:trackmyfundsdb'
+2026-05-05T21:03:18.013+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2026-05-05T21:03:18.027+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2026-05-05T21:03:18.031+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] c.trackmyfunds.TrackMyFundsApplication   : Started TrackMyFundsApplication in 1.412 seconds (process running for 1504.567)
+2026-05-05T21:03:18.034+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-05-05T21:03:21.308+05:30  INFO 24428 --- [TrackMyFunds] [   File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 29 class path changes (29 additions, 0 deletions, 0 modifications)
+2026-05-05T21:03:21.311+05:30  INFO 24428 --- [TrackMyFunds] [       Thread-7] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-05-05T21:03:21.327+05:30  INFO 24428 --- [TrackMyFunds] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-05-05T21:03:21.328+05:30  INFO 24428 --- [TrackMyFunds] [       Thread-7] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-05-05T21:03:21.328+05:30  WARN 24428 --- [TrackMyFunds] [       Thread-7] o.s.b.f.support.DisposableBeanAdapter    : Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-232]
+2026-05-05T21:03:21.328+05:30  INFO 24428 --- [TrackMyFunds] [       Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2026-05-05T21:03:21.328+05:30  INFO 24428 --- [TrackMyFunds] [       Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+Standard Commons Logging discovery in action with spring-jcl: please remove commons-logging.jar from classpath in order to avoid potential conflicts
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.5)
+
+2026-05-05T21:03:21.523+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] c.trackmyfunds.TrackMyFundsApplication   : Starting TrackMyFundsApplication using Java 21 with PID 24428 (C:\Users\2438932\OneDrive - Cognizant\Desktop\TrackMyFunds\target\classes started by 2438932 in C:\Users\2438932\OneDrive - Cognizant\Desktop\TrackMyFunds)
+2026-05-05T21:03:21.525+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] c.trackmyfunds.TrackMyFundsApplication   : The following 1 profile is active: "dev"
+2026-05-05T21:03:22.039+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-05T21:03:22.064+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 23 ms. Found 1 JPA repository interface.
+2026-05-05T21:03:22.173+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-05-05T21:03:22.178+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-05-05T21:03:22.179+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.40]
+2026-05-05T21:03:22.219+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-05-05T21:03:22.221+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 689 ms
+Standard Commons Logging discovery in action with spring-jcl: please remove commons-logging.jar from classpath in order to avoid potential conflicts
+2026-05-05T21:03:22.256+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-05-05T21:03:22.259+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-05-05T21:03:22.269+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-05T21:03:22.271+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2026-05-05T21:03:22.275+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Added connection conn20: url=jdbc:h2:mem:trackmyfundsdb user=SA
+2026-05-05T21:03:22.276+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2026-05-05T21:03:22.277+05:30  WARN 24428 --- [TrackMyFunds] [  restartedMain] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-05-05T21:03:22.277+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-3)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-05-05T21:03:22.381+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+Hibernate: 
+    drop table if exists expenses cascade 
+Hibernate: 
+    create table expenses (
+        amount numeric(19,2) not null,
+        date date not null,
+        created_at timestamp(6),
+        id bigint generated by default as identity,
+        description TEXT,
+        title varchar(255) not null,
+        category enum ('EDUCATION','ENTERTAINMENT','FOOD','HEALTH','OTHER','SHOPPING','TRANSPORT','UTILITIES') not null,
+        payment_method enum ('CARD','CASH','NETBANKING','UPI') not null,
+        primary key (id)
+    )
+2026-05-05T21:03:22.398+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-05-05T21:03:22.655+05:30  WARN 24428 --- [TrackMyFunds] [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-05T21:03:22.672+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2026-05-05T21:03:22.840+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:trackmyfundsdb'
+2026-05-05T21:03:22.888+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2026-05-05T21:03:22.911+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2026-05-05T21:03:22.920+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] c.trackmyfunds.TrackMyFundsApplication   : Started TrackMyFundsApplication in 1.468 seconds (process running for 1509.456)
+Hibernate: 
+    select
+        count(*) 
+    from
+        expenses e1_0
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+2026-05-05T21:03:23.170+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] com.trackmyfunds.config.DataSeeder       : DataSeeder: seeded 50 expense records.
+2026-05-05T21:03:23.173+05:30  INFO 24428 --- [TrackMyFunds] [  restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-05-05T21:50:50.942+05:30  WARN 24428 --- [TrackMyFunds] [l-3 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Thread starvation or clock leap detected (housekeeper delta=32m58s385ms344µs800ns).
+2026-05-05T21:51:48.203+05:30  WARN 24428 --- [TrackMyFunds] [l-3 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Thread starvation or clock leap detected (housekeeper delta=57s260ms948µs300ns).
+2026-05-05T21:54:56.248+05:30  INFO 24428 --- [TrackMyFunds] [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-05-05T21:54:56.251+05:30  INFO 24428 --- [TrackMyFunds] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-05-05T21:54:56.251+05:30  INFO 24428 --- [TrackMyFunds] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+Hibernate: 
+    select
+        e1_0.id,
+        e1_0.amount,
+        e1_0.category,
+        e1_0.created_at,
+        e1_0.date,
+        e1_0.description,
+        e1_0.payment_method,
+        e1_0.title 
+    from
+        expenses e1_0 
+    order by
+        e1_0.date desc 
+    offset
+        ? rows 
+    fetch
+        first ? rows only
+Hibernate: 
+    select
+        count(e1_0.id) 
+    from
+        expenses e1_0
+Hibernate: 
+    select
+        e1_0.id,
+        e1_0.amount,
+        e1_0.category,
+        e1_0.created_at,
+        e1_0.date,
+        e1_0.description,
+        e1_0.payment_method,
+        e1_0.title 
+    from
+        expenses e1_0
+Hibernate: 
+    select
+        e1_0.id,
+        e1_0.amount,
+        e1_0.category,
+        e1_0.created_at,
+        e1_0.date,
+        e1_0.description,
+        e1_0.payment_method,
+        e1_0.title 
+    from
+        expenses e1_0
+Hibernate: 
+    select
+        e1_0.id,
+        e1_0.amount,
+        e1_0.category,
+        e1_0.created_at,
+        e1_0.date,
+        e1_0.description,
+        e1_0.payment_method,
+        e1_0.title 
+    from
+        expenses e1_0 
+    where
+        e1_0.id=?
+Hibernate: 
+    select
+        e1_0.id,
+        e1_0.amount,
+        e1_0.category,
+        e1_0.created_at,
+        e1_0.date,
+        e1_0.description,
+        e1_0.payment_method,
+        e1_0.title 
+    from
+        expenses e1_0 
+    where
+        e1_0.id=?
+Hibernate: 
+    update
+        expenses 
+    set
+        amount=?,
+        category=?,
+        date=?,
+        description=?,
+        payment_method=?,
+        title=? 
+    where
+        id=?
+Hibernate: 
+    select
+        e1_0.id,
+        e1_0.amount,
+        e1_0.category,
+        e1_0.created_at,
+        e1_0.date,
+        e1_0.description,
+        e1_0.payment_method,
+        e1_0.title 
+    from
+        expenses e1_0 
+    order by
+        e1_0.date desc 
+    offset
+        ? rows 
+    fetch
+        first ? rows only
+Hibernate: 
+    select
+        count(e1_0.id) 
+    from
+        expenses e1_0
+Hibernate: 
+    select
+        e1_0.id,
+        e1_0.amount,
+        e1_0.category,
+        e1_0.created_at,
+        e1_0.date,
+        e1_0.description,
+        e1_0.payment_method,
+        e1_0.title 
+    from
+        expenses e1_0
+Hibernate: 
+    select
+        e1_0.id,
+        e1_0.amount,
+        e1_0.category,
+        e1_0.created_at,
+        e1_0.date,
+        e1_0.description,
+        e1_0.payment_method,
+        e1_0.title 
+    from
+        expenses e1_0
+Hibernate: 
+    select
+        e1_0.id,
+        e1_0.amount,
+        e1_0.category,
+        e1_0.created_at,
+        e1_0.date,
+        e1_0.description,
+        e1_0.payment_method,
+        e1_0.title 
+    from
+        expenses e1_0 
+    order by
+        e1_0.date desc 
+    offset
+        ? rows 
+    fetch
+        first ? rows only
+Hibernate: 
+    select
+        count(e1_0.id) 
+    from
+        expenses e1_0
+Hibernate: 
+    select
+        e1_0.id,
+        e1_0.amount,
+        e1_0.category,
+        e1_0.created_at,
+        e1_0.date,
+        e1_0.description,
+        e1_0.payment_method,
+        e1_0.title 
+    from
+        expenses e1_0
+Hibernate: 
+    insert 
+    into
+        expenses
+        (amount, category, created_at, date, description, payment_method, title, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    select
+        e1_0.id,
+        e1_0.amount,
+        e1_0.category,
+        e1_0.created_at,
+        e1_0.date,
+        e1_0.description,
+        e1_0.payment_method,
+        e1_0.title 
+    from
+        expenses e1_0 
+    order by
+        e1_0.date desc 
+    offset
+        ? rows 
+    fetch
+        first ? rows only
+Hibernate: 
+    select
+        count(e1_0.id) 
+    from
+        expenses e1_0
+Hibernate: 
+    select
+        e1_0.id,
+        e1_0.amount,
+        e1_0.category,
+        e1_0.created_at,
+        e1_0.date,
+        e1_0.description,
+        e1_0.payment_method,
+        e1_0.title 
+    from
+        expenses e1_0

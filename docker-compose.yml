@@ -1,0 +1,41 @@
+services:
+
+  # ── PostgreSQL ────────────────────────────────────────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: trackmyfunds-postgres
+    environment:
+      POSTGRES_DB:       trackmyfundsdb
+      POSTGRES_USER:     tmf_user
+      POSTGRES_PASSWORD: tmf_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tmf_user -d trackmyfundsdb"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    restart: unless-stopped
+
+  # ── Spring Boot app ───────────────────────────────────────────────────────────
+  app:
+    build: .
+    container_name: trackmyfunds-app
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      DB_URL:      jdbc:postgresql://postgres:5432/trackmyfundsdb
+      DB_USERNAME: tmf_user
+      DB_PASSWORD: tmf_password
+    ports:
+      - "8080:8080"
+    restart: on-failure
+
+# ── Named volume for data persistence ─────────────────────────────────────────
+volumes:
+  postgres_data:

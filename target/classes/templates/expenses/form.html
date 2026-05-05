@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <title th:text="${isEdit} ? 'Edit Expense' : 'Add Expense'">Expense Form</title>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <!-- ── Page header ── -->
+    <div class="d-flex align-items-center gap-3 mb-4">
+        <a th:href="@{/expenses}" class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center gap-1">
+            <i class="bi bi-arrow-left"></i>Back
+        </a>
+        <div>
+            <h4 class="fw-bold mb-0" th:text="${isEdit} ? 'Edit Expense' : 'Add Expense'">Expense Form</h4>
+            <small class="text-muted"
+                   th:text="${isEdit} ? 'Update the details below and save.' : 'Fill in the details below to record a new expense.'">
+            </small>
+        </div>
+    </div>
+
+    <!-- ── Form card ── -->
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-9 col-xl-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4 p-md-5">
+
+                    <form th:action="${isEdit} ? @{/expenses/{id}(id=${expenseId})} : @{/expenses}"
+                          method="post"
+                          th:object="${expense}"
+                          novalidate
+                          autocomplete="off">
+
+                        <!-- ▸ Title ───────────────────────────────────── -->
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold" for="title">
+                                Title <span class="text-danger" aria-hidden="true">*</span>
+                            </label>
+                            <input type="text"
+                                   th:field="*{title}"
+                                   class="form-control"
+                                   th:classappend="${#fields.hasErrors('title')} ? 'is-invalid'"
+                                   placeholder="e.g. Groceries at BigBazaar"
+                                   maxlength="150">
+                            <div class="invalid-feedback" th:errors="*{title}">Title error</div>
+                        </div>
+
+                        <!-- ▸ Amount + Date ────────────────────────────── -->
+                        <div class="row g-3 mb-4">
+
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold" for="amount">
+                                    Amount <span class="text-danger" aria-hidden="true">*</span>
+                                </label>
+                                <div class="input-group"
+                                     th:classappend="${#fields.hasErrors('amount')} ? 'is-invalid'">
+                                    <span class="input-group-text fw-semibold">₹</span>
+                                    <input type="number"
+                                           th:field="*{amount}"
+                                           class="form-control"
+                                           th:classappend="${#fields.hasErrors('amount')} ? 'is-invalid'"
+                                           step="0.01"
+                                           min="0.01"
+                                           placeholder="0.00">
+                                </div>
+                                <div class="invalid-feedback d-block"
+                                     th:if="${#fields.hasErrors('amount')}"
+                                     th:errors="*{amount}">Amount error</div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold" for="date">
+                                    Date <span class="text-danger" aria-hidden="true">*</span>
+                                </label>
+                                <input type="date"
+                                       id="date"
+                                       name="date"
+                                       class="form-control"
+                                       th:classappend="${#fields.hasErrors('date')} ? 'is-invalid'"
+                                       th:value="${expense.date != null ? #temporals.format(expense.date, 'yyyy-MM-dd') : ''}">
+                                <div class="invalid-feedback" th:errors="*{date}">Date error</div>
+                            </div>
+
+                        </div>
+
+                        <!-- ▸ Category + Payment Method ───────────────── -->
+                        <div class="row g-3 mb-4">
+
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold" for="category">
+                                    Category <span class="text-danger" aria-hidden="true">*</span>
+                                </label>
+                                <select th:field="*{category}"
+                                        class="form-select"
+                                        th:classappend="${#fields.hasErrors('category')} ? 'is-invalid'">
+                                    <option value="">— Select category —</option>
+                                    <option th:each="cat : ${categories}"
+                                            th:value="${cat}"
+                                            th:text="${cat}">
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback" th:errors="*{category}">Category error</div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold" for="paymentMethod">
+                                    Payment Method <span class="text-danger" aria-hidden="true">*</span>
+                                </label>
+                                <select th:field="*{paymentMethod}"
+                                        class="form-select"
+                                        th:classappend="${#fields.hasErrors('paymentMethod')} ? 'is-invalid'">
+                                    <option value="">— Select method —</option>
+                                    <option th:each="pm : ${paymentMethods}"
+                                            th:value="${pm}"
+                                            th:text="${pm}">
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback" th:errors="*{paymentMethod}">Payment error</div>
+                            </div>
+
+                        </div>
+
+                        <!-- ▸ Description ─────────────────────────────── -->
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold" for="description">
+                                Description
+                                <span class="text-muted fw-normal small ms-1">(optional)</span>
+                            </label>
+                            <textarea th:field="*{description}"
+                                      class="form-control"
+                                      th:classappend="${#fields.hasErrors('description')} ? 'is-invalid'"
+                                      rows="3"
+                                      maxlength="500"
+                                      placeholder="Any notes about this expense…"></textarea>
+                            <div class="invalid-feedback" th:errors="*{description}">Description error</div>
+                            <div class="form-text text-end">
+                                <span id="descCount">0</span> / 500
+                            </div>
+                        </div>
+
+                        <!-- ▸ Action buttons ──────────────────────────── -->
+                        <div class="d-flex align-items-center gap-3 pt-2 border-top">
+                            <button type="submit" class="btn btn-primary px-5">
+                                <i class="bi bi-check-lg me-2"></i>Save Expense
+                            </button>
+                            <a th:href="@{/expenses}" class="btn btn-link text-secondary text-decoration-none px-0">
+                                <i class="bi bi-x-lg me-1"></i>Cancel
+                            </a>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+            <!-- Required fields note -->
+            <p class="text-muted small mt-2 ps-1">
+                <span class="text-danger">*</span> Required fields
+            </p>
+        </div>
+    </div>
+
+</div>
+
+<!-- ── Page-specific scripts ── -->
+<th:block layout:fragment="scripts">
+<script>
+    /* Default date to today for new-expense forms */
+    (function () {
+        const dateInput = document.getElementById('date');
+        if (dateInput && !dateInput.value) {
+            dateInput.value = new Date().toISOString().split('T')[0];
+        }
+    }());
+
+    /* Live character counter for description */
+    (function () {
+        const ta    = document.getElementById('description');
+        const count = document.getElementById('descCount');
+        if (!ta || !count) return;
+        const update = () => { count.textContent = ta.value.length; };
+        update();
+        ta.addEventListener('input', update);
+    }());
+</script>
+</th:block>
+
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(mvn --version 2>&1)",
+      "PowerShell(java --version 2>&1)"
+    ]
+  }
+}
