@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <title>AI Service Unavailable</title>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-9 col-lg-7">
+            <div class="card shadow-sm border-0 mt-4">
+                <div class="card-body text-center p-5">
+
+                    <div class="d-inline-flex align-items-center justify-content-center
+                                rounded-circle bg-danger bg-opacity-10 mb-4"
+                         style="width:72px; height:72px;">
+                        <i class="bi bi-cloud-slash-fill text-danger fs-2"></i>
+                    </div>
+
+                    <h4 class="fw-bold mb-2">AI service is unavailable</h4>
+
+                    <p class="text-muted mb-4"
+                       th:text="${message} ?: 'Something went wrong while contacting the AI service.'">
+                        The Gemini API key is not configured on the server.
+                    </p>
+
+                    <div class="alert alert-light border text-start small mb-4">
+                        <strong>Common causes:</strong>
+                        <ul class="mb-0 ps-4">
+                            <li><code>GEMINI_API_KEY</code> environment variable is missing or empty</li>
+                            <li>Hourly rate limit hit — try again in a few minutes</li>
+                            <li>Temporary outage at Google AI Studio</li>
+                        </ul>
+                    </div>
+
+                    <div class="d-flex justify-content-center gap-2">
+                        <a th:href="@{/expenses}" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left me-1"></i>Back to Expenses
+                        </a>
+                        <button class="btn btn-primary" onclick="history.back()">
+                            <i class="bi bi-arrow-clockwise me-1"></i>Try Again
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

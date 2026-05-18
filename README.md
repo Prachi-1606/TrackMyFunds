@@ -162,6 +162,58 @@ src/
         └── specification/   # JPA integration tests
 ```
 
+## AI Features
+
+TrackMyFunds ships with five AI-powered features built on the **Google Gemini 1.5-flash** API. They're all reachable from the **AI Tools** link in the navbar (`/ai`).
+
+| # | Feature                  | Where                         | What it does                                                                                  |
+|---|--------------------------|-------------------------------|-----------------------------------------------------------------------------------------------|
+| 1 | **Natural-language entry** | `/expenses/new` form          | Type *"spent 200 on metro yesterday"* → Gemini parses it into title/amount/category/etc. and auto-fills the form |
+| 2 | **Voice expense entry**  | mic button on `/expenses/new` | Speak the same sentence — browser's Web Speech API transcribes it, then hands off to feature #1 |
+| 3 | **Finance Chat**         | `/ai/chat`                    | Free-form Q&A grounded **only** in your logged expenses — the prompt forbids outside knowledge |
+| 4 | **Monthly Insight**      | `/dashboard` card             | Auto-generated 4-5 line spending report on page load: top category, positive observation, area to improve, actionable tip |
+| 5 | **Anomaly Detection**    | inline banner on `/expenses`  | Rule-based check (no AI): flags any new expense > 2× the 3-month category average             |
+
+### Getting a free Gemini API key
+
+1. Sign in to [Google AI Studio](https://aistudio.google.com/app/apikey) with any Google account
+2. Click **Create API key**
+3. Choose a Google Cloud project (Studio offers to create one for you)
+4. Copy the key — it starts with `AIzaSy...`
+
+The free tier on `gemini-1.5-flash` is generous (15 RPM / 1500 RPD at time of writing) and is more than enough for personal use.
+
+### Configuring the key
+
+The app reads the key from the `gemini.api.key` property, which is wired to a **`GEMINI_API_KEY`** environment variable:
+
+```properties
+# application.properties
+gemini.api.key=${GEMINI_API_KEY:}
+gemini.api.url=https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent
+```
+
+Set it locally:
+
+```powershell
+$env:GEMINI_API_KEY = "AIzaSy...your-key"
+./mvnw spring-boot:run
+```
+
+Or on Render: Dashboard → your service → **Environment** → add `GEMINI_API_KEY`. The next deploy picks it up.
+
+### Built-in safety rails
+
+- **Rate limiting**: an in-memory `RateLimitService` caps Gemini calls at **12 per hour app-wide**. Beyond that, the feature returns *"Daily AI limit reached. Try again later."* instead of hitting the API — keeping you well inside free-tier quotas.
+- **Missing-key handling**: if `GEMINI_API_KEY` isn't set, a `GeminiApiException` is thrown and the user lands on a friendly *"AI service is unavailable"* page instead of a stack trace.
+- **Graceful per-feature fallbacks**: transient errors (network, parsing) fall back to *"AI service unavailable. Please try again."* so the UI never breaks.
+
+### Browser support
+
+Voice input depends on the [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API), which is only available in Chromium-based browsers — **Chrome and Edge**. On Firefox or Safari the mic button is hidden automatically and a small *"Voice input requires Chrome or Edge"* hint is shown. All other AI features (text NL entry, chat, monthly insight, anomaly detection) work in every modern browser.
+
+---
+
 ## Spring Profiles
 
 | Profile | Datasource | DDL           | Flyway  | Thymeleaf cache |

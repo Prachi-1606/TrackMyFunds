@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.trackmyfunds.controller.ExpenseRestControllerTest
--------------------------------------------------------------------------------
-Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.053 s -- in com.trackmyfunds.controller.ExpenseRestControllerTest

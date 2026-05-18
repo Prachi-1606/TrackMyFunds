@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <title>Monthly Budgets</title>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <!-- ── Page header ── -->
+    <div class="d-flex justify-content-between align-items-start align-items-sm-center flex-column flex-sm-row gap-2 mb-4">
+        <div>
+            <h4 class="fw-bold mb-0">Monthly Budgets</h4>
+            <small class="text-muted"
+                   th:text="${#temporals.format(#temporals.createNow(), 'MMMM yyyy')}">
+                Month Year
+            </small>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         Section 1 — Set Budget
+    ══════════════════════════════════════════════════════════════════════ -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-transparent">
+            <span class="fw-semibold d-flex align-items-center gap-2">
+                <i class="bi bi-pencil-square"></i>Set Budget
+            </span>
+        </div>
+        <div class="card-body">
+            <form th:action="@{/budget/set}" method="post" class="row g-3 align-items-end">
+
+                <div class="col-12 col-md-5">
+                    <label class="form-label small fw-semibold mb-1">Category</label>
+                    <select name="category" class="form-select" required>
+                        <option value="" disabled selected>Select category…</option>
+                        <option th:each="cat : ${categories}"
+                                th:value="${cat}"
+                                th:text="${cat}"></option>
+                    </select>
+                </div>
+
+                <div class="col-12 col-md-5">
+                    <label class="form-label small fw-semibold mb-1">Monthly Limit (₹)</label>
+                    <input type="number" name="limit" class="form-control"
+                           min="1" step="0.01" placeholder="e.g. 5000.00" required>
+                </div>
+
+                <div class="col-12 col-md-2">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="bi bi-check2-circle me-1"></i>Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         Section 2 — Budget Status (one card per budget)
+    ══════════════════════════════════════════════════════════════════════ -->
+    <h5 class="fw-bold mb-3">Budget Status</h5>
+
+    <div th:if="${#lists.isEmpty(budgetStatuses)}"
+         class="alert alert-light border text-muted d-flex align-items-center gap-2 mb-4">
+        <i class="bi bi-info-circle"></i>
+        No budgets set for this month. Use the form above to create one.
+    </div>
+
+    <div class="row g-3 mb-4" th:if="${not #lists.isEmpty(budgetStatuses)}">
+        <div class="col-12 col-md-6 col-xl-4" th:each="s : ${budgetStatuses}">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+
+                    <!-- Header: category + over-budget badge -->
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h6 class="card-title mb-0 fw-bold" th:text="${s.category}">CATEGORY</h6>
+                        <span th:if="${s.overBudget}"
+                              class="badge bg-danger d-inline-flex align-items-center gap-1">
+                            <i class="bi bi-exclamation-triangle-fill"></i>Over budget!
+                        </span>
+                    </div>
+
+                    <!-- Spent of limit -->
+                    <p class="mb-2 text-muted small">
+                        <span class="fw-semibold text-dark"
+                              th:text="'₹' + ${#numbers.formatDecimal(s.amountSpent, 1, 'COMMA', 2, 'POINT')}">₹0</span>
+                        spent of
+                        <span class="fw-semibold text-dark"
+                              th:text="'₹' + ${#numbers.formatDecimal(s.monthlyLimit, 1, 'COMMA', 2, 'POINT')}">₹0</span>
+                        limit
+                    </p>
+
+                    <!-- Progress bar: green / yellow / red -->
+                    <div class="progress mb-2" style="height: 0.6rem;">
+                        <div class="progress-bar"
+                             role="progressbar"
+                             th:classappend="${s.overBudget} ? ' bg-danger'
+                                           : (${s.percentageUsed >= 80} ? ' bg-warning' : ' bg-success')"
+                             th:style="'width: ' + (${s.percentageUsed > 100 ? 100 : s.percentageUsed}) + '%;'"
+                             th:aria-valuenow="${s.percentageUsed}"
+                             aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+
+                    <!-- Percentage + remaining amount -->
+                    <div class="d-flex justify-content-between small">
+                        <span class="text-muted"
+                              th:text="${#numbers.formatDecimal(s.percentageUsed, 1, 0)} + '% used'">0% used</span>
+
+                        <span th:if="${not s.overBudget}"
+                              class="text-success fw-semibold"
+                              th:text="'₹' + ${#numbers.formatDecimal(s.amountRemaining, 1, 'COMMA', 2, 'POINT')} + ' left'">
+                            ₹0 left
+                        </span>
+                        <span th:if="${s.overBudget}"
+                              class="text-danger fw-semibold"
+                              th:text="'₹' + ${#numbers.formatDecimal(s.amountRemaining.abs(), 1, 'COMMA', 2, 'POINT')} + ' over'">
+                            ₹0 over
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         Section 3 — Categories with no budget yet
+    ══════════════════════════════════════════════════════════════════════ -->
+    <div th:if="${not #lists.isEmpty(categoriesWithoutBudget)}"
+         class="card shadow-sm">
+        <div class="card-header bg-transparent">
+            <span class="fw-semibold d-flex align-items-center gap-2">
+                <i class="bi bi-plus-circle"></i>Categories without a budget
+            </span>
+        </div>
+        <div class="card-body">
+            <div class="d-flex flex-wrap gap-2">
+                <button th:each="cat : ${categoriesWithoutBudget}"
+                        type="button"
+                        class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center gap-1"
+                        data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="Click to set a budget for this category"
+                        th:onclick="|document.querySelector('select[name=category]').value='${cat}'; window.scrollTo({top:0, behavior:'smooth'}); document.querySelector('input[name=limit]').focus();|">
+                    <span th:text="${cat}">CAT</span>
+                    <i class="bi bi-arrow-up-right-circle"></i>
+                </button>
+            </div>
+            <small class="text-muted d-block mt-2">
+                Click any category to jump to the form above.
+            </small>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

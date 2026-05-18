@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Project Requirement Document — TrackMyFunds</title>
+<style>
+  @page { size: A4; margin: 18mm 16mm; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    color: #1a1a1a;
+    line-height: 1.55;
+    max-width: 780px;
+    margin: 24px auto;
+    padding: 0 18px;
+    font-size: 11.5pt;
+  }
+  h1 { font-size: 22pt; margin: 0 0 6pt; border-bottom: 3px solid #0d6efd; padding-bottom: 6pt; color: #0d6efd; }
+  h2 { font-size: 16pt; margin: 28pt 0 8pt; color: #0d6efd; border-bottom: 1px solid #dee2e6; padding-bottom: 4pt; }
+  h3 { font-size: 13pt; margin: 18pt 0 6pt; color: #212529; }
+  h4 { font-size: 11.5pt; margin: 12pt 0 4pt; color: #495057; }
+  p, ul, ol { margin: 6pt 0; }
+  ul, ol { padding-left: 22pt; }
+  li { margin: 2pt 0; }
+  code {
+    background: #f4f5f7;
+    padding: 1pt 4pt;
+    border-radius: 3pt;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 10pt;
+    color: #c7254e;
+  }
+  pre {
+    background: #f4f5f7;
+    border: 1px solid #e9ecef;
+    border-radius: 4pt;
+    padding: 10pt 14pt;
+    overflow-x: auto;
+    font-size: 9.5pt;
+    line-height: 1.45;
+    page-break-inside: avoid;
+  }
+  pre code { background: transparent; padding: 0; color: #1a1a1a; }
+  table { border-collapse: collapse; margin: 8pt 0; width: 100%; font-size: 10pt; }
+  th, td { border: 1px solid #dee2e6; padding: 5pt 8pt; text-align: left; vertical-align: top; }
+  th { background: #f8f9fa; font-weight: 600; }
+  tr:nth-child(even) td { background: #fcfcfd; }
+  blockquote {
+    border-left: 3px solid #0d6efd;
+    background: #f0f4ff;
+    margin: 8pt 0;
+    padding: 6pt 12pt;
+    color: #495057;
+  }
+  hr { border: none; border-top: 1px solid #dee2e6; margin: 18pt 0; }
+  a { color: #0d6efd; text-decoration: none; }
+  .meta-banner {
+    background: linear-gradient(135deg, #0d6efd, #6610f2);
+    color: white;
+    padding: 10pt 16pt;
+    border-radius: 5pt;
+    margin-bottom: 18pt;
+    font-size: 10pt;
+  }
+  @media print {
+    body { margin: 0; max-width: 100%; }
+    h2 { page-break-after: avoid; }
+    pre, table { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="meta-banner">
+  <strong>TrackMyFunds</strong> — Personal Finance Tracker · Generated 2026-05-18
+</div>
+<h1>Project Requirement Document — TrackMyFunds</h1>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Project Name</td>
+<td>TrackMyFunds — Personal Finance Tracker</td>
+</tr>
+<tr>
+<td>Document Type</td>
+<td>Project Requirement Document (PRD)</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Date</td>
+<td>2026-05-18</td>
+</tr>
+<tr>
+<td>Author</td>
+<td>Prachi Dnyaneshwar Parate</td>
+</tr>
+<tr>
+<td>Audience</td>
+<td>Project sponsors, evaluators, future contributors</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>1. Executive Summary</h2>
+<p>TrackMyFunds is a web-based personal finance tracking application that lets a single user record day-to-day expenses, analyse their spending patterns, set monthly budgets per category, and ask natural-language questions about their financial data. The system pairs a conventional Spring Boot CRUD application with a curated set of AI-powered features built on Google Gemini and the browser-native Web Speech API.</p>
+<p>The product targets individuals who want a lightweight, self-hosted alternative to commercial finance trackers — with the bonus of an AI assistant that is grounded strictly in their own data and never sees information from outside sources.</p>
+<hr>
+<h2>2. Background &amp; Problem Statement</h2>
+<h3>2.1 The problem</h3>
+<p>Existing personal finance tools fall into two camps:</p>
+<ol>
+<li><strong>Heavy commercial products</strong> (Mint, YNAB, Money Manager) — feature-rich but require sharing bank credentials, carry subscription costs, and offer no transparency into the data flow.</li>
+<li><strong>Spreadsheet-based tracking</strong> — fully private but tedious to maintain, with no automated analysis, no anomaly detection, and no easy way to query history.</li>
+</ol>
+<p>Neither option offers an AI-driven query layer that respects user privacy: most &quot;AI finance&quot; products send the entire transaction history to third-party LLMs without explicit user consent.</p>
+<h3>2.2 The proposed solution</h3>
+<p>TrackMyFunds offers:</p>
+<ul>
+<li>A clean web UI to record, filter, sort and export expenses</li>
+<li>Visual analytics (dashboard, charts, summary statistics)</li>
+<li>Per-category monthly budgets with progress tracking</li>
+<li>Rule-based anomaly detection (no AI required)</li>
+<li>An AI assistant that answers free-form questions grounded <strong>only</strong> in the user&#39;s own logged expenses — a single API call per request, with no training-data retention</li>
+<li>Natural-language expense entry (typed or spoken) for friction-free data capture</li>
+<li>Optional self-hosted deployment via Docker Compose</li>
+</ul>
+<hr>
+<h2>3. Project Objectives</h2>
+<ol>
+<li><strong>Functional</strong>: Provide a complete CRUD experience for personal expense tracking with rich filtering, sorting, pagination and CSV export.</li>
+<li><strong>Analytical</strong>: Surface spending patterns through a dashboard (category breakdown, 6-month trend, top expenses) and a monthly budget tracker.</li>
+<li><strong>Intelligent</strong>: Integrate Google Gemini AI for five user-facing features without exceeding the free-tier API budget.</li>
+<li><strong>Production-ready</strong>: Ship with Flyway migrations, profile-based configuration (dev/prod), Docker support, deployment to Render, and comprehensive unit/integration tests.</li>
+<li><strong>Polished</strong>: Demonstrate engineering rigor — exception handling, prompt engineering, rate limiting, graceful fallbacks, accessible UI.</li>
+</ol>
+<hr>
+<h2>4. Scope</h2>
+<h3>4.1 In Scope</h3>
+<ul>
+<li>Single-user expense management (no multi-tenancy or user accounts)</li>
+<li>Six predefined expense categories and four payment methods</li>
+<li>Indian Rupee (₹) currency formatting</li>
+<li>Web UI (Thymeleaf + Bootstrap 5) and a REST API</li>
+<li>AI features: natural-language entry, voice input, finance chat, monthly insight, anomaly detection</li>
+<li>Local development on H2; production deployment on PostgreSQL (Render)</li>
+<li>50 automated tests across service, controller, repository and specification layers</li>
+<li>Docker Compose for self-hosted deployment</li>
+</ul>
+<h3>4.2 Out of Scope</h3>
+<ul>
+<li>Multi-user / authentication / authorisation</li>
+<li>Multi-currency support (only INR is formatted)</li>
+<li>Bank-account synchronisation / OAuth integration with banks</li>
+<li>Mobile native apps (iOS/Android) — the web UI is responsive but not packaged</li>
+<li>Investment tracking, income tracking, recurring transactions</li>
+<li>Tax categorisation or financial advice beyond the AI chat</li>
+<li>Notification system (email/SMS/push)</li>
+<li>Receipt photo upload / OCR</li>
+</ul>
+<hr>
+<h2>5. Stakeholders &amp; User Personas</h2>
+<h3>5.1 Stakeholders</h3>
+<table>
+<thead>
+<tr>
+<th>Stakeholder</th>
+<th>Interest</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>End user (single)</td>
+<td>Easy expense logging, useful insights, data privacy</td>
+</tr>
+<tr>
+<td>Project evaluator</td>
+<td>Code quality, design choices, breadth of technologies</td>
+</tr>
+<tr>
+<td>Future contributor</td>
+<td>Clean architecture, documentation, tested codebase</td>
+</tr>
+<tr>
+<td>Hiring manager</td>
+<td>Demonstrable full-stack + AI integration skills</td>
+</tr>
+</tbody></table>
+<h3>5.2 Primary Persona</h3>
+<p><strong>&quot;Ananya, 24 — first job&quot;</strong></p>
+<ul>
+<li>Recently started working in Pune; tracks all expenses in a spreadsheet</li>
+<li>Wants to know &quot;where my money goes&quot; but spreadsheets give no insight</li>
+<li>Doesn&#39;t want to give bank credentials to a third party</li>
+<li>Curious about AI but only if her data stays under her control</li>
+<li>Uses Chrome on a Windows laptop, occasionally types on her phone</li>
+</ul>
+<h3>5.3 Secondary Persona</h3>
+<p><strong>&quot;Rohan, 28 — engineer</strong></p>
+<ul>
+<li>Self-hosts apps on a home server / cloud VM</li>
+<li>Comfortable with Docker, command line, and reading code</li>
+<li>Wants to fork and extend (e.g. add recurring transactions, multi-user)</li>
+<li>Values architectural clarity and good test coverage</li>
+</ul>
+<hr>
+<h2>6. Functional Requirements</h2>
+<p>Each requirement has a unique ID, priority (M = must-have, S = should-have, C = could-have), and acceptance criteria.</p>
+<h3>6.1 Expense Management (Core CRUD)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Pri</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FR-1</td>
+<td>M</td>
+<td>A user can create a new expense with title, amount, category, payment method, date, and description.</td>
+</tr>
+<tr>
+<td>FR-2</td>
+<td>M</td>
+<td>All required fields are validated; the user sees inline error messages on submission failure.</td>
+</tr>
+<tr>
+<td>FR-3</td>
+<td>M</td>
+<td>A user can view a paginated list of all expenses.</td>
+</tr>
+<tr>
+<td>FR-4</td>
+<td>M</td>
+<td>A user can edit an existing expense by ID.</td>
+</tr>
+<tr>
+<td>FR-5</td>
+<td>M</td>
+<td>A user can delete an expense after confirming via a browser prompt.</td>
+</tr>
+<tr>
+<td>FR-6</td>
+<td>M</td>
+<td>A user can view a single expense&#39;s JSON representation via the REST API.</td>
+</tr>
+</tbody></table>
+<h3>6.2 Filtering, Sorting &amp; Search</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Pri</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FR-7</td>
+<td>M</td>
+<td>A user can filter the expense list by category, payment method, date range, amount range, keyword.</td>
+</tr>
+<tr>
+<td>FR-8</td>
+<td>M</td>
+<td>A user can sort the expense list by date, title, or amount in ascending or descending order.</td>
+</tr>
+<tr>
+<td>FR-9</td>
+<td>M</td>
+<td>A user can paginate the expense list (default 10 records per page).</td>
+</tr>
+<tr>
+<td>FR-10</td>
+<td>S</td>
+<td>Filter dropdowns auto-submit on change; the keyword input auto-submits after a 300ms debounce.</td>
+</tr>
+<tr>
+<td>FR-11</td>
+<td>S</td>
+<td>A &quot;Clear All&quot; button resets every filter and submits.</td>
+</tr>
+<tr>
+<td>FR-12</td>
+<td>C</td>
+<td>Active filters are visually highlighted (blue border, light blue background).</td>
+</tr>
+</tbody></table>
+<h3>6.3 Summary Statistics &amp; Dashboard</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Pri</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FR-13</td>
+<td>M</td>
+<td>The expense list shows four summary stats: total amount, record count, average, highest expense.</td>
+</tr>
+<tr>
+<td>FR-14</td>
+<td>M</td>
+<td>A dashboard page shows a doughnut chart of spending by category.</td>
+</tr>
+<tr>
+<td>FR-15</td>
+<td>M</td>
+<td>A dashboard page shows a bar chart of monthly spending for the last 6 months.</td>
+</tr>
+<tr>
+<td>FR-16</td>
+<td>M</td>
+<td>A dashboard page shows the top 5 most expensive transactions.</td>
+</tr>
+</tbody></table>
+<h3>6.4 Export</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Pri</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FR-17</td>
+<td>M</td>
+<td>A user can export the current filtered expense set as a CSV file.</td>
+</tr>
+</tbody></table>
+<h3>6.5 Budgeting</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Pri</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FR-18</td>
+<td>M</td>
+<td>A user can set a monthly limit for any category for the current month and year.</td>
+</tr>
+<tr>
+<td>FR-19</td>
+<td>M</td>
+<td>Setting a new limit for an existing (category, month, year) updates the existing record.</td>
+</tr>
+<tr>
+<td>FR-20</td>
+<td>M</td>
+<td>The budget page shows a card per category with progress bar, percentage used, and remaining amount.</td>
+</tr>
+<tr>
+<td>FR-21</td>
+<td>M</td>
+<td>Progress bars are green below 80%, yellow 80-100%, red above 100%.</td>
+</tr>
+<tr>
+<td>FR-22</td>
+<td>M</td>
+<td>An &quot;Over budget!&quot; red badge appears on any category that has been exceeded.</td>
+</tr>
+<tr>
+<td>FR-23</td>
+<td>M</td>
+<td>The expense list page shows a compact red-pill strip listing every over-budget category.</td>
+</tr>
+<tr>
+<td>FR-24</td>
+<td>S</td>
+<td>Categories with no budget set yet are shown as quick-set chips on the budget page.</td>
+</tr>
+<tr>
+<td>FR-25</td>
+<td>C</td>
+<td>A JSON endpoint exposes current-month budget statuses for external clients (<code>GET /budget/status</code>).</td>
+</tr>
+</tbody></table>
+<h3>6.6 Anomaly Detection</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Pri</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FR-26</td>
+<td>M</td>
+<td>When a new expense exceeds 2× the 3-month average for its category, a warning banner is shown.</td>
+</tr>
+<tr>
+<td>FR-27</td>
+<td>M</td>
+<td>The banner displays: amount, category, multiplier, average, and asks &quot;Was this intentional?&quot;.</td>
+</tr>
+<tr>
+<td>FR-28</td>
+<td>M</td>
+<td>When there is no prior data for the category, no anomaly is reported.</td>
+</tr>
+</tbody></table>
+<h3>6.7 AI Features</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Pri</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FR-29</td>
+<td>M</td>
+<td>A user can type a natural-language description (&quot;spent 200 on metro yesterday&quot;) and have the form auto-filled by AI.</td>
+</tr>
+<tr>
+<td>FR-30</td>
+<td>S</td>
+<td>A user can speak the same sentence using a microphone button (Chrome/Edge only).</td>
+</tr>
+<tr>
+<td>FR-31</td>
+<td>M</td>
+<td>A user can chat with an AI assistant grounded only in their logged expenses.</td>
+</tr>
+<tr>
+<td>FR-32</td>
+<td>M</td>
+<td>The chat page provides 4 suggested questions as clickable chips.</td>
+</tr>
+<tr>
+<td>FR-33</td>
+<td>M</td>
+<td>The dashboard displays an auto-generated 4-5 line monthly insight on page load.</td>
+</tr>
+<tr>
+<td>FR-34</td>
+<td>M</td>
+<td>A landing page at <code>/ai</code> indexes all AI features as cards.</td>
+</tr>
+<tr>
+<td>FR-35</td>
+<td>M</td>
+<td>AI features fail gracefully with a fallback message when the API is unreachable.</td>
+</tr>
+<tr>
+<td>FR-36</td>
+<td>M</td>
+<td>AI API calls are rate-limited to 12/hour to stay within free-tier quota.</td>
+</tr>
+<tr>
+<td>FR-37</td>
+<td>M</td>
+<td>A user-friendly error page is shown when the Gemini API key is unconfigured.</td>
+</tr>
+</tbody></table>
+<h3>6.8 Deployment &amp; Operations</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Pri</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FR-38</td>
+<td>M</td>
+<td>The application can be built and packaged as a single executable JAR.</td>
+</tr>
+<tr>
+<td>FR-39</td>
+<td>M</td>
+<td>The application supports two Spring profiles: <code>dev</code> (H2) and <code>prod</code> (PostgreSQL).</td>
+</tr>
+<tr>
+<td>FR-40</td>
+<td>M</td>
+<td>Database schema is created/updated via Flyway migrations in production.</td>
+</tr>
+<tr>
+<td>FR-41</td>
+<td>M</td>
+<td>The application can be containerised via the included multi-stage Dockerfile.</td>
+</tr>
+<tr>
+<td>FR-42</td>
+<td>S</td>
+<td>A Docker Compose file brings up the application and a PostgreSQL container with one command.</td>
+</tr>
+<tr>
+<td>FR-43</td>
+<td>S</td>
+<td>The application is deployable to Render (Free tier) for a public demo URL.</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>7. Non-Functional Requirements</h2>
+<h3>7.1 Performance</h3>
+<ul>
+<li><strong>NFR-1</strong>: Any non-AI page renders within 500 ms on a 2-vCPU, 1 GB RAM instance with up to 10 000 expenses.</li>
+<li><strong>NFR-2</strong>: AI features respond within 5 seconds end-to-end under normal Gemini latency.</li>
+<li><strong>NFR-3</strong>: Database queries use indexes on <code>date</code> and <code>category</code> (most filtered columns).</li>
+</ul>
+<h3>7.2 Usability</h3>
+<ul>
+<li><strong>NFR-4</strong>: All pages are responsive — usable on a 360 px mobile viewport up to a 1920 px desktop.</li>
+<li><strong>NFR-5</strong>: Form errors are visible inline next to the field, not in a banner only.</li>
+<li><strong>NFR-6</strong>: Currency is formatted with Indian numbering convention (<code>₹ 1,00,000.00</code>).</li>
+</ul>
+<h3>7.3 Reliability</h3>
+<ul>
+<li><strong>NFR-7</strong>: A Gemini API failure must not prevent non-AI functionality from working.</li>
+<li><strong>NFR-8</strong>: Schema migrations run automatically on startup in production; the app refuses to start on schema mismatch (<code>ddl-auto=validate</code>).</li>
+</ul>
+<h3>7.4 Security</h3>
+<ul>
+<li><strong>NFR-9</strong>: The Gemini API key is never committed to source control; it is read from the <code>GEMINI_API_KEY</code> environment variable.</li>
+<li><strong>NFR-10</strong>: User input is validated server-side regardless of client-side checks.</li>
+<li><strong>NFR-11</strong>: Output is HTML-escaped by default (Thymeleaf <code>th:text</code> is used, never <code>th:utext</code> for untrusted data).</li>
+<li><strong>NFR-12</strong>: SQL injection is prevented by exclusive use of JPA / parameterised queries.</li>
+</ul>
+<h3>7.5 Maintainability</h3>
+<ul>
+<li><strong>NFR-13</strong>: The codebase has at least 50 automated tests covering all service-layer methods and HTTP endpoints.</li>
+<li><strong>NFR-14</strong>: Project follows standard Spring Boot package conventions: <code>controller</code>, <code>service</code>, <code>repository</code>, <code>model</code>, <code>dto</code>, <code>enums</code>, <code>exception</code>, <code>specification</code>, <code>config</code>.</li>
+<li><strong>NFR-15</strong>: All public service methods carry a Javadoc comment explaining intent.</li>
+</ul>
+<h3>7.6 Compatibility</h3>
+<ul>
+<li><strong>NFR-16</strong>: Java 17 source level (build target) running on JDK 21.</li>
+<li><strong>NFR-17</strong>: Browser compatibility — last two versions of Chrome, Edge, Firefox, Safari. Voice input degrades gracefully on non-Chromium browsers.</li>
+</ul>
+<hr>
+<h2>8. Constraints &amp; Assumptions</h2>
+<h3>8.1 Constraints</h3>
+<ul>
+<li>The Gemini free tier (15 RPM / 1500 RPD) is the only AI provider; no paid tier or alternative LLM is configured.</li>
+<li>Render free tier (web service + Postgres) is the only target cloud environment.</li>
+<li>Single-user application — no support for concurrent multi-user scenarios.</li>
+<li>All currency values are stored and displayed as Indian Rupees (₹).</li>
+</ul>
+<h3>8.2 Assumptions</h3>
+<ul>
+<li>The user has Java 17+ (or 21), Maven (or uses the project&#39;s lack of <code>mvnw</code> and installs Maven), and Docker Desktop installed for local development.</li>
+<li>The user has or can create a free Google account for AI Studio API key generation.</li>
+<li>The user has a free Render and GitHub account for public deployment.</li>
+<li>The user&#39;s browser is modern enough to support Bootstrap 5 and ES2020 JavaScript.</li>
+</ul>
+<hr>
+<h2>9. Success Criteria</h2>
+<p>The project is considered successful when:</p>
+<ol>
+<li>All M-priority functional requirements (FR-1 through FR-43 where Pri = M) pass manual smoke testing.</li>
+<li>The automated test suite reports <code>Tests run: 50, Failures: 0, Errors: 0</code>.</li>
+<li>The application is deployed to Render with a publicly accessible URL.</li>
+<li>The AI chat answers a question of the form <em>&quot;Which category did I spend the most on?&quot;</em> correctly based on test data.</li>
+<li>The Monthly Insight card on the dashboard renders within 10 seconds of page load.</li>
+<li>The README documents how a new developer can run the app and obtain an API key in under 15 minutes.</li>
+</ol>
+<hr>
+<h2>10. Risks &amp; Mitigations</h2>
+<table>
+<thead>
+<tr>
+<th>Risk</th>
+<th>Likelihood</th>
+<th>Impact</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Gemini API key leaked to GitHub</td>
+<td>Medium</td>
+<td>High</td>
+<td>Key read from env var; <code>.gitignore</code> excludes <code>.env</code>; README explicitly warns</td>
+</tr>
+<tr>
+<td>Gemini free-tier quota exhausted</td>
+<td>Medium</td>
+<td>Medium</td>
+<td>In-memory <code>RateLimitService</code> caps usage at 12/hr; graceful fallback message</td>
+</tr>
+<tr>
+<td>Gemini model deprecated mid-deployment</td>
+<td>Medium</td>
+<td>High</td>
+<td>Demonstrated by <code>gemini-1.5-flash → 2.5-flash</code> rotation during build; model URL is in <code>application.properties</code> and trivially updated</td>
+</tr>
+<tr>
+<td>Render free tier sleeps the app after 15 min idle</td>
+<td>High</td>
+<td>Low</td>
+<td>Documented in README; cold start is ~30s — acceptable for portfolio project</td>
+</tr>
+<tr>
+<td>Render Postgres free tier expires after 90 days</td>
+<td>Certain</td>
+<td>Medium</td>
+<td>Documented in README; users can upgrade or migrate</td>
+</tr>
+<tr>
+<td>Web Speech API unsupported in user&#39;s browser</td>
+<td>Medium</td>
+<td>Low</td>
+<td>Mic button hidden + &quot;requires Chrome or Edge&quot; hint shown automatically</td>
+</tr>
+<tr>
+<td>H2 reserved-word collision in entity column names</td>
+<td>Realised</td>
+<td>Medium</td>
+<td>Fixed during build by overriding column names (<code>month_value</code>, <code>year_value</code>)</td>
+</tr>
+<tr>
+<td>Browser caches stale JS preventing UI bug fixes</td>
+<td>High</td>
+<td>Low</td>
+<td>Documented <code>Ctrl+F5</code> / <code>Ctrl+Shift+Delete</code> workaround; future improvement: cache-busting query params</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>11. Glossary</h2>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Expense</td>
+<td>A single financial transaction recorded by the user</td>
+</tr>
+<tr>
+<td>Category</td>
+<td>One of eight predefined groupings: FOOD, TRANSPORT, ENTERTAINMENT, HEALTH, UTILITIES, SHOPPING, EDUCATION, OTHER</td>
+</tr>
+<tr>
+<td>Payment Method</td>
+<td>One of four channels: CASH, CARD, UPI, NETBANKING</td>
+</tr>
+<tr>
+<td>Budget</td>
+<td>A per-category monthly spending limit set by the user</td>
+</tr>
+<tr>
+<td>Anomaly</td>
+<td>A new expense that exceeds 2× the 3-month average for its category</td>
+</tr>
+<tr>
+<td>AI Chat</td>
+<td>The Gemini-backed natural-language Q&amp;A feature at <code>/ai/chat</code></td>
+</tr>
+<tr>
+<td>Insight</td>
+<td>The Gemini-generated 4-5 line monthly spending summary on the dashboard</td>
+</tr>
+<tr>
+<td>Fallback</td>
+<td>The string <code>&quot;AI service unavailable. Please try again.&quot;</code> shown when a Gemini call fails</td>
+</tr>
+<tr>
+<td>Rate Limit</td>
+<td>The 12-calls-per-hour cap enforced before each Gemini API request</td>
+</tr>
+<tr>
+<td>Flyway</td>
+<td>The database migration tool that owns all production DDL</td>
+</tr>
+<tr>
+<td>Render</td>
+<td>The PaaS provider hosting the live deployment</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>12. Revision History</h2>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Date</th>
+<th>Author</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1.0</td>
+<td>2026-05-18</td>
+<td>Prachi Dnyaneshwar Parate</td>
+<td>Initial release covering v1 features</td>
+</tr>
+</tbody></table>
+
+</body>
+</html>

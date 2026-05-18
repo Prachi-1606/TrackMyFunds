@@ -5,6 +5,21 @@
       layout:decorate="~{layout/base}">
 <head>
     <title th:text="${isEdit} ? 'Edit Expense' : 'Add Expense'">Expense Form</title>
+    <th:block layout:fragment="head-extra">
+        <style>
+            /* Mic button while recording — red pulse */
+            .tmf-mic-recording {
+                color: #fff !important;
+                background-color: #dc3545 !important;
+                border-color: #dc3545 !important;
+                animation: tmfMicPulse 1s ease-in-out infinite;
+            }
+            @keyframes tmfMicPulse {
+                0%, 100% { box-shadow: 0 0 0 0 rgba(220, 53, 69, .55); }
+                50%      { box-shadow: 0 0 0 .35rem rgba(220, 53, 69, 0); }
+            }
+        </style>
+    </th:block>
 </head>
 <body>
 <div layout:fragment="content">
@@ -19,6 +34,68 @@
             <small class="text-muted"
                    th:text="${isEdit} ? 'Update the details below and save.' : 'Fill in the details below to record a new expense.'">
             </small>
+        </div>
+    </div>
+
+    <!-- ── Natural-language quick entry (only on the create form) ── -->
+    <div class="row justify-content-center" th:if="${not isEdit}">
+        <div class="col-12 col-lg-9 col-xl-8">
+            <div class="card shadow-sm border-0 mb-3">
+                <div class="card-body p-4">
+                    <label class="form-label fw-semibold d-flex align-items-center gap-2 mb-2">
+                        <i class="bi bi-stars text-primary"></i>Quick entry with AI
+                    </label>
+                    <div class="input-group">
+                        <input type="text"
+                               id="nlInput"
+                               class="form-control"
+                               placeholder="e.g. spent 200 on metro yesterday"
+                               autocomplete="off">
+                        <button type="button" id="nlMicBtn"
+                                class="btn btn-outline-secondary"
+                                title="Speak your expense"
+                                aria-label="Start voice input"
+                                aria-pressed="false">
+                            <i class="bi bi-mic-fill"></i>
+                        </button>
+                        <button type="button" id="nlParseBtn" class="btn btn-primary">
+                            <span id="nlParseLabel">
+                                <i class="bi bi-magic me-1"></i>Parse with AI
+                            </span>
+                            <span id="nlParseSpinner" class="d-none">
+                                <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                                Parsing…
+                            </span>
+                        </button>
+                    </div>
+
+                    <!-- Voice status row -->
+                    <div id="nlListeningText"
+                         class="small text-danger fw-semibold mt-2 d-none d-flex align-items-center gap-1">
+                        <i class="bi bi-record-fill"></i>Listening…
+                    </div>
+                    <div id="nlVoiceUnsupported"
+                         class="small text-muted mt-2 d-none"
+                         data-bs-toggle="tooltip"
+                         title="The Web Speech API is only available in Chromium-based browsers.">
+                        <i class="bi bi-info-circle me-1"></i>Voice input requires Chrome or Edge
+                    </div>
+
+                    <!-- Result banners (hidden by default; toggled by JS) -->
+                    <div id="nlSuccessBanner"
+                         class="alert alert-success d-none align-items-center gap-2 mt-3 mb-0"
+                         role="alert">
+                        <i class="bi bi-check-circle-fill flex-shrink-0"></i>
+                        <span>Form filled by AI — please verify before saving.</span>
+                    </div>
+                    <div id="nlErrorBanner"
+                         class="alert alert-danger d-none align-items-center gap-2 mt-3 mb-0"
+                         role="alert">
+                        <i class="bi bi-exclamation-octagon-fill flex-shrink-0"></i>
+                        <span>Could not parse. Please fill manually.</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -166,6 +243,7 @@
 
 <!-- ── Page-specific scripts ── -->
 <th:block layout:fragment="scripts">
+<script th:src="@{/js/expense-voice.js}"></script>
 <script>
     /* Default date to today for new-expense forms */
     (function () {
@@ -183,6 +261,81 @@
         const update = () => { count.textContent = ta.value.length; };
         update();
         ta.addEventListener('input', update);
+    }());
+
+    /* ── Natural-language parse-with-AI ──────────────────────────────────── */
+    (function () {
+        const input   = document.getElementById('nlInput');
+        const btn     = document.getElementById('nlParseBtn');
+        const label   = document.getElementById('nlParseLabel');
+        const spinner = document.getElementById('nlParseSpinner');
+        const okBanner  = document.getElementById('nlSuccessBanner');
+        const errBanner = document.getElementById('nlErrorBanner');
+        if (!input || !btn) return; // edit page — section not rendered
+
+        const form = document.querySelector('form[th\\:object], form');
+        const $ = (name) => form.querySelector('[name="' + name + '"]');
+
+        function setLoading(loading) {
+            btn.disabled = loading;
+            input.disabled = loading;
+            label.classList.toggle('d-none',   loading);
+            spinner.classList.toggle('d-none', !loading);
+        }
+
+        function showBanner(el, visible) {
+            el.classList.toggle('d-none', !visible);
+            el.classList.toggle('d-flex',  visible);
+        }
+
+        function fillForm(data) {
+            if (data.title         != null) $('title').value         = data.title;
+            if (data.amount        != null) $('amount').value        = data.amount;
+            if (data.category      != null) $('category').value      = data.category;
+            if (data.paymentMethod != null) $('paymentMethod').value = data.paymentMethod;
+            if (data.date          != null) $('date').value          = data.date;
+            if (data.description   != null) {
+                $('description').value = data.description;
+                $('description').dispatchEvent(new Event('input')); // refresh char counter
+            }
+        }
+
+        async function parse() {
+            const text = input.value.trim();
+            if (!text) return;
+
+            showBanner(okBanner,  false);
+            showBanner(errBanner, false);
+            setLoading(true);
+
+            try {
+                const body = new URLSearchParams({ input: text });
+                const res  = await fetch('/expenses/parse-nl', {
+                    method:  'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body:    body,
+                });
+
+                if (!res.ok) {
+                    showBanner(errBanner, true);
+                    return;
+                }
+
+                const data = await res.json();
+                fillForm(data);
+                showBanner(okBanner, true);
+
+            } catch (e) {
+                showBanner(errBanner, true);
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        btn.addEventListener('click', parse);
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') { e.preventDefault(); parse(); }
+        });
     }());
 </script>
 </th:block>

@@ -1,13 +1,16 @@
 package com.trackmyfunds.controller;
 
+import com.trackmyfunds.dto.AnomalyResult;
 import com.trackmyfunds.dto.DashboardDTO;
 import com.trackmyfunds.dto.ExpenseRequestDTO;
 import com.trackmyfunds.dto.SummaryStatsDTO;
 import com.trackmyfunds.enums.Category;
 import com.trackmyfunds.enums.PaymentMethod;
 import com.trackmyfunds.model.Expense;
+import com.trackmyfunds.service.BudgetService;
 import com.trackmyfunds.service.CsvExportService;
 import com.trackmyfunds.service.ExpenseService;
+import com.trackmyfunds.service.GeminiService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +47,8 @@ class ExpenseControllerTest {
 
     @MockBean ExpenseService  expenseService;
     @MockBean CsvExportService csvExportService;
+    @MockBean BudgetService   budgetService;
+    @MockBean GeminiService   geminiService;
     @MockBean JpaMetamodelMappingContext jpaMetamodelMappingContext;
 
     private Expense sampleExpense;
@@ -62,6 +67,15 @@ class ExpenseControllerTest {
                 .thenReturn(new SummaryStatsDTO(BigDecimal.ZERO, 0L, BigDecimal.ZERO, BigDecimal.ZERO));
         when(expenseService.getDashboardData())
                 .thenReturn(new DashboardDTO(Map.of(), Map.of(), List.of()));
+
+        // BudgetService is now injected; default to no budgets so the over-budget
+        // strip on the expense list page renders nothing.
+        when(budgetService.getCurrentMonthBudgets())
+                .thenReturn(List.of());
+
+        // checkAnomaly is called by createExpense after save; default to no anomaly.
+        when(expenseService.checkAnomaly(any()))
+                .thenReturn(AnomalyResult.none());
     }
 
     // ── GET /expenses ─────────────────────────────────────────────────────────

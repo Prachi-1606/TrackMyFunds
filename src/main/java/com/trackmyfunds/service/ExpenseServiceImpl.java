@@ -1,8 +1,11 @@
 package com.trackmyfunds.service;
 
+import com.trackmyfunds.dto.AnomalyResult;
 import com.trackmyfunds.dto.DashboardDTO;
 import com.trackmyfunds.dto.ExpenseFilterDTO;
 import com.trackmyfunds.dto.ExpenseRequestDTO;
+import com.trackmyfunds.dto.FinanceSummaryDTO;
+import com.trackmyfunds.dto.MonthlyInsightDTO;
 import com.trackmyfunds.dto.SummaryStatsDTO;
 import com.trackmyfunds.model.Expense;
 import com.trackmyfunds.repository.ExpenseRepository;
@@ -159,6 +162,175 @@ public class ExpenseServiceImpl implements ExpenseService {
                 .toList();
 
         return new DashboardDTO(byCategory, byMonth, top5);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public AnomalyResult checkAnomaly(Expense newExpense) {
+        LocalDate cutoff = LocalDate.now().minusMonths(3);
+
+        List<Expense> recent = expenseRepository
+                .findByCategoryAndDateAfter(newExpense.getCategory(), cutoff)
+                .stream()
+                .filter(e -> !e.getId().equals(newExpense.getId())) // exclude the row just saved
+                .toList();
+
+        if (recent.isEmpty()) {
+            return AnomalyResult.none();
+        }
+
+        BigDecimal total = recent.stream()
+                .map(Expense::getAmount)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal average = total.divide(BigDecimal.valueOf(recent.size()), 2, RoundingMode.HALF_UP);
+
+        if (average.signum() == 0) {
+            return AnomalyResult.none();
+        }
+
+        double multiplier = newExpense.getAmount()
+                .divide(average, 2, RoundingMode.HALF_UP)
+                .doubleValue();
+
+        if (multiplier <= 2.0) {
+            return new AnomalyResult(false, null, average, multiplier);
+        }
+
+        String message = String.format(
+                "This ₹%s %s expense is %.0fx your monthly average of ₹%s. Was this intentional?",
+                formatMoney(newExpense.getAmount()),
+                friendlyCategory(newExpense.getCategory().name()),
+                multiplier,
+                formatMoney(average));
+
+        return new AnomalyResult(true, message, average, multiplier);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public FinanceSummaryDTO getExpenseSummaryForAI() {
+        List<Expense> all = expenseRepository.findAll();
+
+        if (all.isEmpty()) {
+            return new FinanceSummaryDTO(
+                    Map.of(), Map.of(), List.of(),
+                    BigDecimal.ZERO, 0L, BigDecimal.ZERO, BigDecimal.ZERO,
+                    null, null, null);
+        }
+
+        // Category totals — sorted descending so the largest spend leads the prompt
+        Map<String, BigDecimal> categoryTotals = all.stream()
+                .collect(Collectors.groupingBy(
+                        e -> e.getCategory().name(),
+                        Collectors.reducing(BigDecimal.ZERO, Expense::getAmount, BigDecimal::add)))
+                .entrySet().stream()
+                .sorted(Map.Entry.<String, BigDecimal>comparingByValue().reversed())
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey, Map.Entry::getValue,
+                        (a, b) -> a, LinkedHashMap::new));
+
+        // Monthly totals — last 6 calendar months, oldest → newest, pre-seeded with zero
+        DateTimeFormatter monthFmt = DateTimeFormatter.ofPattern("MMM yyyy");
+        LocalDate today = LocalDate.now();
+        Map<String, BigDecimal> monthlyTotals = new LinkedHashMap<>();
+        for (int i = 5; i >= 0; i--) {
+            monthlyTotals.put(YearMonth.from(today).minusMonths(i).format(monthFmt), BigDecimal.ZERO);
+        }
+        LocalDate monthlyCutoff = today.minusMonths(6).withDayOfMonth(1);
+        all.stream()
+                .filter(e -> !e.getDate().isBefore(monthlyCutoff))
+                .forEach(e -> {
+                    String key = YearMonth.from(e.getDate()).format(monthFmt);
+                    monthlyTotals.computeIfPresent(key, (k, v) -> v.add(e.getAmount()));
+                });
+
+        // Top 5 highest single expenses
+        List<Expense> topExpenses = all.stream()
+                .sorted(Comparator.comparing(Expense::getAmount).reversed())
+                .limit(5)
+                .toList();
+
+        // Overall stats
+        BigDecimal totalAmount = all.stream()
+                .map(Expense::getAmount)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        long       totalCount    = all.size();
+        BigDecimal averageAmount = totalAmount.divide(BigDecimal.valueOf(totalCount), 2, RoundingMode.HALF_UP);
+        BigDecimal highestAmount = topExpenses.get(0).getAmount();
+
+        // Modal payment method
+        String mostUsedPaymentMethod = all.stream()
+                .collect(Collectors.groupingBy(Expense::getPaymentMethod, Collectors.counting()))
+                .entrySet().stream()
+                .max(Map.Entry.comparingByValue())
+                .map(e -> e.getKey().name())
+                .orElse(null);
+
+        // Date range
+        LocalDate earliest = all.stream().map(Expense::getDate).min(LocalDate::compareTo).orElse(null);
+        LocalDate latest   = all.stream().map(Expense::getDate).max(LocalDate::compareTo).orElse(null);
+
+        return new FinanceSummaryDTO(
+                categoryTotals, monthlyTotals, topExpenses,
+                totalAmount, totalCount, averageAmount, highestAmount,
+                mostUsedPaymentMethod, earliest, latest);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public MonthlyInsightDTO getMonthlyInsightData(int month, int year) {
+        YearMonth target    = YearMonth.of(year, month);
+        YearMonth previous  = target.minusMonths(1);
+
+        LocalDate targetStart = target.atDay(1);
+        LocalDate targetEnd   = target.atEndOfMonth();
+        LocalDate prevStart   = previous.atDay(1);
+        LocalDate prevEnd     = previous.atEndOfMonth();
+
+        List<Expense> thisMonth = expenseRepository.findAll().stream()
+                .filter(e -> !e.getDate().isBefore(targetStart) && !e.getDate().isAfter(targetEnd))
+                .toList();
+
+        Map<String, BigDecimal> categoryTotals = thisMonth.stream()
+                .collect(Collectors.groupingBy(
+                        e -> e.getCategory().name(),
+                        Collectors.reducing(BigDecimal.ZERO, Expense::getAmount, BigDecimal::add)))
+                .entrySet().stream()
+                .sorted(Map.Entry.<String, BigDecimal>comparingByValue().reversed())
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey, Map.Entry::getValue,
+                        (a, b) -> a, LinkedHashMap::new));
+
+        BigDecimal overallTotal = thisMonth.stream()
+                .map(Expense::getAmount)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        BigDecimal lastMonthTotal = expenseRepository.findAll().stream()
+                .filter(e -> !e.getDate().isBefore(prevStart) && !e.getDate().isAfter(prevEnd))
+                .map(Expense::getAmount)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        double changePercentage = 0.0;
+        if (lastMonthTotal.signum() != 0) {
+            changePercentage = overallTotal.subtract(lastMonthTotal)
+                    .multiply(BigDecimal.valueOf(100))
+                    .divide(lastMonthTotal, 1, RoundingMode.HALF_UP)
+                    .doubleValue();
+        }
+
+        String monthName = target.getMonth().getDisplayName(
+                java.time.format.TextStyle.FULL, java.util.Locale.ENGLISH) + " " + year;
+
+        return new MonthlyInsightDTO(
+                categoryTotals, overallTotal, lastMonthTotal, changePercentage, monthName);
+    }
+
+    private static String formatMoney(BigDecimal amount) {
+        return String.format("%,.0f", amount);
+    }
+
+    private static String friendlyCategory(String enumName) {
+        return enumName.charAt(0) + enumName.substring(1).toLowerCase();
     }
 
     private Expense findOrThrow(Long id) {

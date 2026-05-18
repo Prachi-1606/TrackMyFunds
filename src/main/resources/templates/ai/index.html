@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <title>AI Tools</title>
+    <th:block layout:fragment="head-extra">
+        <style>
+            .ai-card {
+                border: 1px solid #e9ecef;
+                border-radius: .75rem;
+                transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+                height: 100%;
+                background: #fff;
+            }
+            .ai-card:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 8px 24px rgba(13, 110, 253, .08);
+                border-color: #b6c7f9;
+            }
+            .ai-icon-wrap {
+                width: 52px; height: 52px;
+                border-radius: .65rem;
+                display: flex; align-items: center; justify-content: center;
+                font-size: 1.4rem;
+                flex-shrink: 0;
+            }
+            .ai-icon-chat    { background: #e7edff; color: #0d6efd; }
+            .ai-icon-insight { background: #fff7e6; color: #ffa726; }
+            .ai-icon-voice   { background: #f3e7ff; color: #6f42c1; }
+        </style>
+    </th:block>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <!-- ── Page header ── -->
+    <div class="d-flex align-items-start gap-3 mb-4">
+        <div class="rounded-3 bg-primary bg-opacity-10 p-3 flex-shrink-0">
+            <i class="bi bi-stars fs-4 text-primary"></i>
+        </div>
+        <div>
+            <h4 class="fw-bold mb-0">AI Tools</h4>
+            <small class="text-muted">
+                Smart features powered by Google Gemini, grounded in your own expense data.
+            </small>
+        </div>
+    </div>
+
+    <!-- ── Tool cards ── -->
+    <div class="row g-4">
+
+        <!-- Finance Chat -->
+        <div class="col-12 col-md-6 col-lg-4">
+            <a th:href="@{/ai/chat}" class="ai-card d-block p-4 text-decoration-none text-body">
+                <div class="d-flex gap-3 align-items-start mb-3">
+                    <div class="ai-icon-wrap ai-icon-chat">
+                        <i class="bi bi-chat-dots-fill"></i>
+                    </div>
+                    <div>
+                        <h6 class="fw-bold mb-1">Finance Chat</h6>
+                        <span class="badge bg-primary bg-opacity-10 text-primary small">Q&amp;A</span>
+                    </div>
+                </div>
+                <p class="text-muted small mb-2">
+                    Ask anything about your spending — "Which category costs me the most?",
+                    "How does this month compare to last?" — answers stay grounded in your data.
+                </p>
+                <span class="text-primary small fw-semibold">
+                    Open chat <i class="bi bi-arrow-right"></i>
+                </span>
+            </a>
+        </div>
+
+        <!-- Monthly Insight -->
+        <div class="col-12 col-md-6 col-lg-4">
+            <a th:href="@{/dashboard}" class="ai-card d-block p-4 text-decoration-none text-body">
+                <div class="d-flex gap-3 align-items-start mb-3">
+                    <div class="ai-icon-wrap ai-icon-insight">
+                        <i class="bi bi-lightbulb-fill"></i>
+                    </div>
+                    <div>
+                        <h6 class="fw-bold mb-1">Monthly Insight</h6>
+                        <span class="badge bg-warning bg-opacity-10 text-warning-emphasis small">Auto-generated</span>
+                    </div>
+                </div>
+                <p class="text-muted small mb-2">
+                    A friendly 4-5 line spending report for the current month — top category,
+                    a positive trend, one area to improve, and an actionable tip. Lives on the dashboard.
+                </p>
+                <span class="text-primary small fw-semibold">
+                    See dashboard <i class="bi bi-arrow-right"></i>
+                </span>
+            </a>
+        </div>
+
+        <!-- Voice / NL Expense Entry -->
+        <div class="col-12 col-md-6 col-lg-4">
+            <a th:href="@{/expenses/new}" class="ai-card d-block p-4 text-decoration-none text-body">
+                <div class="d-flex gap-3 align-items-start mb-3">
+                    <div class="ai-icon-wrap ai-icon-voice">
+                        <i class="bi bi-mic-fill"></i>
+                    </div>
+                    <div>
+                        <h6 class="fw-bold mb-1">Voice Expense Entry</h6>
+                        <span class="badge bg-purple bg-opacity-10 text-purple small"
+                              style="background:#f3e7ff; color:#6f42c1;">Chrome / Edge</span>
+                    </div>
+                </div>
+                <p class="text-muted small mb-2">
+                    Speak or type "spent 200 on metro yesterday" — Gemini parses the sentence
+                    into a structured expense and auto-fills the form for you to verify.
+                </p>
+                <span class="text-primary small fw-semibold">
+                    Try voice entry <i class="bi bi-arrow-right"></i>
+                </span>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- ── How it works strip ── -->
+    <div class="alert alert-light border mt-5 mb-0 small">
+        <i class="bi bi-info-circle me-1"></i>
+        All AI answers are based on your own logged expenses; no third party sees your data
+        beyond a single API call to Google Gemini per request.
+    </div>
+
+</div>
+</body>
+</html>

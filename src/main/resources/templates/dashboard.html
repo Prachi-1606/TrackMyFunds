@@ -5,6 +5,81 @@
       layout:decorate="~{layout/base}">
 <head>
     <title>Dashboard</title>
+    <th:block layout:fragment="head-extra">
+        <style>
+            .fab-ai {
+                position: fixed;
+                bottom: 1.5rem;
+                right: 1.5rem;
+                z-index: 1030;
+                width: 56px; height: 56px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, #0d6efd, #6610f2);
+                color: #fff;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.5rem;
+                text-decoration: none;
+                box-shadow: 0 4px 14px rgba(13, 110, 253, .45);
+                transition: transform .15s ease, box-shadow .15s ease;
+            }
+            .fab-ai:hover {
+                color: #fff;
+                transform: scale(1.08);
+                box-shadow: 0 6px 20px rgba(13, 110, 253, .55);
+            }
+            .fab-ai::after {
+                content: "Ask AI";
+                position: absolute;
+                right: 70px;
+                top: 50%;
+                transform: translateY(-50%);
+                background: #212529;
+                color: #fff;
+                font-size: .75rem;
+                padding: .35rem .65rem;
+                border-radius: .375rem;
+                white-space: nowrap;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity .15s ease;
+            }
+            .fab-ai:hover::after { opacity: 1; }
+
+            /* ── Monthly Insight card ── */
+            .insight-card {
+                border: none;
+                border-radius: .75rem;
+                background: linear-gradient(135deg, #fff7e6 0%, #ffffff 60%);
+                border-left: 4px solid #ffc107;
+            }
+            .insight-icon-wrap {
+                width: 44px; height: 44px;
+                border-radius: 50%;
+                background: #ffc107;
+                color: #fff;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+                font-size: 1.25rem;
+            }
+            .skeleton-line {
+                height: .85rem;
+                background: linear-gradient(90deg, #e9ecef 25%, #f5f5f5 50%, #e9ecef 75%);
+                background-size: 200% 100%;
+                animation: skeletonShimmer 1.4s infinite;
+                border-radius: .25rem;
+                margin-bottom: .55rem;
+            }
+            .skeleton-line:last-child { margin-bottom: 0; width: 60%; }
+            @keyframes skeletonShimmer {
+                0%   { background-position: 200% 0; }
+                100% { background-position: -200% 0; }
+            }
+        </style>
+    </th:block>
 </head>
 <body>
 <div layout:fragment="content">
@@ -18,6 +93,39 @@
         <a th:href="@{/expenses}" class="btn btn-outline-primary btn-sm d-inline-flex align-items-center gap-2">
             <i class="bi bi-table"></i>View All Expenses
         </a>
+    </div>
+
+    <!-- ── Monthly Insight (AI-generated) ── -->
+    <div class="card shadow-sm insight-card mb-4">
+        <div class="card-body p-4 d-flex gap-3 align-items-start">
+            <div class="insight-icon-wrap">
+                <i class="bi bi-lightbulb-fill"></i>
+            </div>
+            <div class="flex-grow-1">
+                <h6 class="fw-bold mb-1 d-flex align-items-center gap-2">
+                    Monthly Insight
+                    <span class="badge bg-warning bg-opacity-25 text-warning-emphasis fw-normal small">AI</span>
+                </h6>
+
+                <!-- Skeleton — shown until the fetch completes -->
+                <div id="insightSkeleton">
+                    <div class="skeleton-line"></div>
+                    <div class="skeleton-line"></div>
+                    <div class="skeleton-line"></div>
+                    <div class="skeleton-line"></div>
+                </div>
+
+                <!-- Real content — populated by JS -->
+                <p id="insightText"
+                   class="text-body mb-0 d-none"
+                   style="white-space: pre-wrap; line-height: 1.55;"></p>
+
+                <p id="insightError"
+                   class="text-danger small mb-0 d-none">
+                    Couldn't load the insight right now. Refresh to try again.
+                </p>
+            </div>
+        </div>
     </div>
 
     <!-- ── Charts row ── -->
@@ -139,6 +247,11 @@
     </div>
     <!-- /top 5 -->
 
+    <!-- ── Floating AI chat button ── -->
+    <a th:href="@{/ai/chat}" class="fab-ai" aria-label="Open AI Finance Chat">
+        <i class="bi bi-stars"></i>
+    </a>
+
 </div>
 
 <th:block layout:fragment="scripts">
@@ -170,6 +283,35 @@
 
         /* ── Global Chart.js defaults ───────────────────────────────────────── */
         Chart.defaults.font.family = "'Segoe UI', system-ui, sans-serif";
+
+        /* ── Monthly Insight: fetch and swap in once loaded ─────────────────── */
+        (function () {
+            const skeleton = document.getElementById('insightSkeleton');
+            const text     = document.getElementById('insightText');
+            const error    = document.getElementById('insightError');
+            if (!skeleton || !text || !error) return;
+
+            const now   = new Date();
+            const month = now.getMonth() + 1; // JS months are 0-indexed
+            const year  = now.getFullYear();
+
+            fetch(`/ai/insight/${month}/${year}`, {
+                headers: { 'Accept': 'text/plain' }
+            })
+                .then(res => {
+                    if (!res.ok) throw new Error('HTTP ' + res.status);
+                    return res.text();
+                })
+                .then(narrative => {
+                    text.textContent = narrative.trim();
+                    skeleton.classList.add('d-none');
+                    text.classList.remove('d-none');
+                })
+                .catch(() => {
+                    skeleton.classList.add('d-none');
+                    error.classList.remove('d-none');
+                });
+        }());
 
         /* ── Doughnut: spending by category ────────────────────────────────── */
         if (categoryLabels.length === 0) {

@@ -1,0 +1,36 @@
+# ── Build output ──────────────────────────────────────────────────────────────
+target/
+*.jar
+*.war
+*.class
+
+# ── IDE ───────────────────────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.iml
+.classpath
+.project
+.settings/
+
+# ── OS ────────────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── Logs ──────────────────────────────────────────────────────────────────────
+*.log
+
+# ── Local secrets (NEVER commit) ──────────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+application-local.properties
+secrets.properties
+
+# ── Node tooling (only used to render docs/*.html) ────────────────────────────
+docs/node_modules/
+docs/package.json
+docs/package-lock.json
+docs/PRD-body.html
+
+# ── Generated PDFs (regenerate from .html via Ctrl+P) ─────────────────────────
+*.pdf
